@@ -75,32 +75,27 @@ namespace Bl
             var rightPoint = startPoint + step;
 
             DirectionDelegate getDirection;
-            Direction direction;
-
-            var leftY = _function(leftPoint);
-            var centerY = _function(innerPoint);
-
             if (minimization)
             {
-                getDirection = GetDirectionForMinimization;
                 // Min function on left side
-                direction = leftY < centerY ? Direction.Left : Direction.Right;
+                getDirection = GetDirectionForMinimization;
             }
             else
             {
-                getDirection = GetDirectionForMaximization;
                 // Max function on right side
-                direction = leftY < centerY ? Direction.Right : Direction.Left;
+                getDirection = GetDirectionForMaximization;
             }
 
-            var iteration = 0;
-            do
-            {
-                if (iteration > maxIterations)
-                    throw new Exception($"Maximum number of iterations ({maxIterations}) reached");
+            var direction = getDirection(leftPoint, innerPoint);
 
-                iteration++;
-                var h = Math.Pow(2, iteration) * step;
+            for (int iteration = 1; iteration < maxIterations; iteration++)
+            {
+                // If function changed direction, then found extremum
+                if (direction != getDirection(leftPoint, rightPoint))
+                    return (LeftBound: leftPoint, RightBound: rightPoint);
+
+                // Calculating step to shift range bounds
+                var h = Math.Pow(2, iteration + 1) * step;
 
                 // Set new bounds, depended of direction
                 // WARNING!!! Do not change position of set range
@@ -120,11 +115,9 @@ namespace Bl
                 }
 
                 OnIteration?.Invoke(this, new IterationInfoEventArgs(leftPoint, rightPoint, iteration));
+            }
 
-                // If function changed direction, then found extremum
-            } while (direction == getDirection(leftPoint, rightPoint));
-
-            return (LeftBound: leftPoint, RightBound: rightPoint);
+            throw new Exception($"Maximum number of iterations ({maxIterations}) reached");
         }
 
         #endregion
