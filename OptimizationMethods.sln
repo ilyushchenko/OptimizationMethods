@@ -1,8 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bl", "Bl\Bl.csproj", "{E80A6D43-9BCE-4720-9D61-7FBC7E944F66}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bl", "Bl\Bl.csproj", "{E80A6D43-9BCE-4720-9D61-7FBC7E944F66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bl.Tests", "Bl.Tests\Bl.Tests.csproj", "{890D93B8-684C-4DC7-9866-4F3DD63D21A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bl.Tests", "Bl.Tests\Bl.Tests.csproj", "{890D93B8-684C-4DC7-9866-4F3DD63D21A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +21,11 @@ Global
 		{890D93B8-684C-4DC7-9866-4F3DD63D21A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{890D93B8-684C-4DC7-9866-4F3DD63D21A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{890D93B8-684C-4DC7-9866-4F3DD63D21A1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {26E63F70-7323-443F-A62D-F74A786DC9B0}
 	EndGlobalSection
 EndGlobal
