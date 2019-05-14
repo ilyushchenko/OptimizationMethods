@@ -16,18 +16,15 @@ namespace Bl
         public int Iteration { get; }
     }
 
-    public class UnconditionalOptimization
-    {
-        public delegate void IterationInfoDelegate(object sender, IterationInfoEventArgs iterationInfoEventArgs);
 
+    public class UnconditionalOptimization : IterationMethod
+    {
         private readonly SingleVariableFunctionDelegate _function;
 
         public UnconditionalOptimization(SingleVariableFunctionDelegate function)
         {
             _function = function;
         }
-
-        public event IterationInfoDelegate OnIteration;
 
         /// <summary>
         /// Get bound for Maximization
@@ -88,7 +85,7 @@ namespace Bl
 
             var direction = getDirection(leftPoint, innerPoint);
 
-            for (int iteration = 1; iteration < maxIterations; iteration++)
+            for (int iteration = 0; iteration < maxIterations; iteration++)
             {
                 // If function changed direction, then found extremum
                 if (direction != getDirection(leftPoint, rightPoint))
@@ -114,7 +111,7 @@ namespace Bl
                     leftPoint = innerPoint - h;
                 }
 
-                OnIteration?.Invoke(this, new IterationInfoEventArgs(leftPoint, rightPoint, iteration));
+                Notify(leftPoint, rightPoint, iteration);
             }
 
             throw new Exception($"Maximum number of iterations ({maxIterations}) reached");
